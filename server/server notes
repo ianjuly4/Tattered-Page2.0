@@ -1,0 +1,22 @@
+python models:
+    user
+        username
+        password
+    library or bookshelf
+        genre
+        user id
+        book id
+    book
+        name
+        genre
+        library id
+        user id
+    chatroom friends
+        username
+        user id
+    writers corner
+        name    
+        genre
+        text area
+        
+        
