@@ -13,9 +13,7 @@ class User(db.Model, SerializerMixin):
     username = db.Column(db.String, nullable=False, unique=True)
     _password_hash = db.Column(db.String, nullable=False)
 
-    dates = relationship('Date', back_populates='user', cascade="all, delete-orphan")
-    tasks = relationship('Task', back_populates='user', cascade="all, delete-orphan")
-
+    
     @hybrid_property
     def password_hash(self):
         return self._password_hash
@@ -41,4 +39,25 @@ class User(db.Model, SerializerMixin):
         if not password_hash:
             raise ValueError("Password hash cannot be empty")
         return password_hash
+    
+class Book(db.Model, SerializerMixin):
+    __tablename__ = 'books'
 
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String, nullable=False)
+    author = db.Column(db.String, nullable=False)
+    genre = db.Column(db.String, nullable=False)
+
+class Friend(db.Model, SerializerMixin):
+    __tablename__ = 'friends'
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String, nullable=False)
+
+class Story(db.Model, SerializerMixin):
+    __tablename__ = "stories"
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String, nullable=False)
+    genre = db.Column(db.String, nullable=False)
+    content = db.Column(db.Text, nullable=False)
