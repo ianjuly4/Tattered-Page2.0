@@ -13,6 +13,10 @@ class User(db.Model, SerializerMixin):
     username = db.Column(db.String, nullable=False, unique=True)
     _password_hash = db.Column(db.String, nullable=False)
 
+    reviews = db.relationship('Review', back_populates='user', cascade='all, delete-orphan')
+
+    chatrooms = db.relationship('Chatroom', back_populates='user', cascade='all, delete-orphan')
+
     
     @hybrid_property
     def password_hash(self):
@@ -40,6 +44,20 @@ class User(db.Model, SerializerMixin):
             raise ValueError("Password hash cannot be empty")
         return password_hash
     
+class Review(db.Model, SerializerMixin):
+    __tablename__ = 'reviews'
+
+    id = db.Column(db.Integer, primary_key=True)
+    review = db.Column(db.Text, nullable=False)
+    star_count = db.Column(db.Integer, nullable=False)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    book_id = db.Column(db.Integer, db.ForeignKey('books.id'))
+
+    book = db.relationship('Book', back_populates='reviews')
+    user = db.relationship('User', back_populates='reviews')
+
+
 class Book(db.Model, SerializerMixin):
     __tablename__ = 'books'
 
@@ -48,16 +66,24 @@ class Book(db.Model, SerializerMixin):
     author = db.Column(db.String, nullable=False)
     genre = db.Column(db.String, nullable=False)
 
+    reviews = db.relationship('Review', back_populates='book', cascade='all, delete-orphan')
+
+class ChatRoom(db.Model, SerializerMixin):
+    __tablename__ = 'chatrooms'
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    friend_id = db.Column(db.Integer, db.ForiegnKey('friends.id'))
+
+    user = db.relationship('User', back_populates='chatrooms')
+    friend = db.relationship('Friend', back_populates='chatrooms')
+
 class Friend(db.Model, SerializerMixin):
     __tablename__ = 'friends'
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, nullable=False)
 
-class Story(db.Model, SerializerMixin):
-    __tablename__ = "stories"
+    users = db.relationship('User', back_populates='friend', cascade='all, delete-orphan')
 
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String, nullable=False)
-    genre = db.Column(db.String, nullable=False)
-    content = db.Column(db.Text, nullable=False)

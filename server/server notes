@@ -11,7 +11,8 @@ python models:
     chatroom friends
         username
         user id
-        
+    
+    flex functions
     writers corner
         name    
         genre
