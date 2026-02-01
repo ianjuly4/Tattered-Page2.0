@@ -14,9 +14,9 @@ class User(db.Model, SerializerMixin):
     _password_hash = db.Column(db.String, nullable=False)
 
     reviews = db.relationship('Review', back_populates='user', cascade='all, delete-orphan')
-
     chatrooms = db.relationship('Chatroom', back_populates='user', cascade='all, delete-orphan')
 
+    
     
     @hybrid_property
     def password_hash(self):
@@ -72,6 +72,7 @@ class ChatRoom(db.Model, SerializerMixin):
     __tablename__ = 'chatrooms'
 
     id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text, nullable=True)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     friend_id = db.Column(db.Integer, db.ForiegnKey('friends.id'))
