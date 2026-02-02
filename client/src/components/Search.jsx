@@ -5,7 +5,7 @@ import * as yup from 'yup';
 
 
 const Search = () => {
-    const {fetchBooks} = useContext(MyContext)
+    const {fetchBooks, books} = useContext(MyContext)
     const formSchema = yup.object().shape({
     searchTerm: yup.string().required("Must enter a search term").max(100),
     filter: yup.string().required("Must filter search term").oneOf(["title", "author", "genre"]),
@@ -22,6 +22,7 @@ const Search = () => {
         
     },
   });
+  console.log(books)
     return (
         <form onSubmit={formik.handleSubmit} className="flex items-center space-x-0">
           <div className="form-control relative flex items-center w-96">

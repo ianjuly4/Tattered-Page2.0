@@ -9,6 +9,7 @@ const MyContextProvider = ({children})=>{
   const [books, setBooks] = useState([])
 
   const fetchBooks = (searchQuery, filterType) => {
+    console.log(searchQuery,filterType)
     setLoading(true);
     setError(null);
 
@@ -26,6 +27,8 @@ const MyContextProvider = ({children})=>{
         setLoading(false);
         if (data.items && data.items.length > 0) {
           setBooks(data.items);
+          console.log(books)
+          console.log(data.items)
           sessionStorage.setItem("books", JSON.stringify(data.items));
         } else {
           setError("No books found.");
