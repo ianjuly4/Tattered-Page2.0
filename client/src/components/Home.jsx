@@ -1,11 +1,15 @@
 import React from "react";
 import Header from "./Header";
+import Search from "./Search"
 
 const Home = () => {
     return(
-        <div className="bg-[#a348a6] w-full h-screen">
-            <Header/>
-
+        <div>
+            <div className="bg-[#a348a6] w-full h-screen">
+                <Header/>
+                <Search/>
+            </div>
+            
         </div>
     )
 }
