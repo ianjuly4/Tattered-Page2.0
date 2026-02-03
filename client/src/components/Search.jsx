@@ -24,10 +24,10 @@ const Search = () => {
   });
   console.log(books)
     return (
-        <form onSubmit={formik.handleSubmit} className="flex items-center space-x-0">
-          <div className="form-control relative flex items-center w-96">
+        <form onSubmit={formik.handleSubmit} className="">
+          <div className="">
             <select
-              className="select select-bordered absolute right-20 pl-1"
+              className=""
               name="filter"
               value={formik.values.filter}
               onChange={formik.handleChange}
@@ -40,7 +40,7 @@ const Search = () => {
             <input
               type="text"
               placeholder="Search"
-              className="input input-bordered pl-2 pr-16 w-full"
+              className=""
               value={formik.values.searchTerm}
               onChange={formik.handleChange}
               name="searchTerm"
@@ -50,7 +50,7 @@ const Search = () => {
               <div className="text-white text-xs">{formik.errors.searchTerm}</div>
             )}
 
-            <button type="submit" className="btn btn-ghost ml-2 absolute right-1">
+            <button type="submit" className="">
               Enter
             </button>
           </div>

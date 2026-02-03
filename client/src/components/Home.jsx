@@ -5,7 +5,7 @@ import Search from "./Search"
 const Home = () => {
     return(
         <div>
-            <div className="bg-[#a348a6] w-full h-screen">
+            <div className="">
                 <Header/>
                 <Search/>
             </div>
