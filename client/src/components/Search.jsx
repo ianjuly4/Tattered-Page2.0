@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { MyContext } from "../MyContext"; 
 import { useFormik } from "formik";
 import * as yup from 'yup';
+import SearchResults from "./SearchResults"
 
 
 const Search = () => {
@@ -24,6 +25,7 @@ const Search = () => {
   });
   console.log(books)
     return (
+       <di> 
         <form onSubmit={formik.handleSubmit} className="">
           <div className="">
             <select
@@ -55,6 +57,8 @@ const Search = () => {
             </button>
           </div>
         </form>
+        {<SearchResults books={books}/>}
+       </di>
     )
 }
 export default Search; 

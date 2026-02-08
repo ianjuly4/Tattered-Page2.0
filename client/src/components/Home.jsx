@@ -8,6 +8,7 @@ const Home = () => {
             <div className="">
                 <Header/>
                 <Search/>
+                
             </div>
             
         </div>
