@@ -3,6 +3,7 @@ import { MyContext } from "../MyContext";
 import { useFormik } from "formik";
 import * as yup from 'yup';
 import SearchResults from "./SearchResults"
+import Header from "./Header";
 
 
 const Search = () => {
@@ -24,12 +25,17 @@ const Search = () => {
     },
   });
   console.log(books)
-    return (
-       <di> 
-        <form onSubmit={formik.handleSubmit} className="">
-          <div className="">
+   return (
+  <div>
+    <Header />
+
+    <div className="page-container">
+
+      {/* Top Bar */}
+      <div className="top-bar">
+        <div className="search">
+          <form onSubmit={formik.handleSubmit}>
             <select
-              className=""
               name="filter"
               value={formik.values.filter}
               onChange={formik.handleChange}
@@ -42,23 +48,22 @@ const Search = () => {
             <input
               type="text"
               placeholder="Search"
-              className=""
               value={formik.values.searchTerm}
               onChange={formik.handleChange}
               name="searchTerm"
             />
-            {/* Show errors only after submit */}
-            {formik.submitCount > 0 && formik.errors.searchTerm && (
-              <div className="text-white text-xs">{formik.errors.searchTerm}</div>
-            )}
 
-            <button type="submit" className="">
-              Enter
-            </button>
-          </div>
-        </form>
-        {<SearchResults books={books}/>}
-       </di>
-    )
+            <button type="submit">Enter</button>
+          </form>
+        </div>
+      </div>
+
+      {/* Grid lives inside SearchResults */}
+      <SearchResults books={books} />
+
+    </div>
+  </div>
+);
+
 }
 export default Search; 

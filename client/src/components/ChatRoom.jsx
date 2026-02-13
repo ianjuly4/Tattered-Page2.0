@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { PORT, CLIENT, SERVER } from '../utilities/Constants';
+import Header from './Header';
 
 function ChatRoom() {
   const [username, setUsername] = useState(null);
@@ -7,13 +8,13 @@ function ChatRoom() {
   const wsClient = useRef(null);
   const messageRef = useRef(null);
 
-  useEffect(() => {
+  {useEffect(() => {
     // Ask for username only once when component mounts
     const name = prompt('Enter your username:');
     if (name?.trim()) {
       setUsername(name.trim());
     }
-  }, []);
+  }, []);}
 
   useEffect(() => {
     if (!username) return;
@@ -72,6 +73,8 @@ function ChatRoom() {
 
   return (
     <div>
+      <Header/>
+    <div className='chatroom'>
       <h2>Welcome, {username}</h2>
       <div className="chat-box">
         {messages.map((msg, idx) => (
@@ -86,6 +89,7 @@ function ChatRoom() {
         <input ref={messageRef} type="text" placeholder="Type a message..." />
         <button type="submit">➤</button>
       </form>
+    </div>
     </div>
   );
 }

@@ -7,8 +7,6 @@ const Home = () => {
         <div>
             <div className="">
                 <Header/>
-                <Search/>
-                
             </div>
             
         </div>

@@ -3,14 +3,10 @@ import NavBar from "./NavBar";
 
 function Header() {
   return (
-    <div>
-
-      <div className="header">
-        <h2>The Tattered Page</h2>
-        <NavBar/>
-      </div>
-
-    </div>
+    <header className="header">
+      <h2 className="site-title">The Tattered Page</h2>
+      <NavBar />
+    </header>
   );
 }
 
