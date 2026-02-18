@@ -22,6 +22,11 @@ const NavBar = () => {
             Bookclub
           </NavLink>
         </li>
+        <li>
+          <NavLink to="/user/:userId" className="navlink">
+            Account
+          </NavLink>
+        </li>
         {/* <li>
           <NavLink to={`/users/${user.id}`} className="navlink">
             Profile
