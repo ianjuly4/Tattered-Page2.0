@@ -1,21 +1,5 @@
-python models:
-    user
-        username
-        password
-
-    book
-        name
-        genre
-        user id
-
-    chatroom friends
-        username
-        user id
-    
-    flex functions
-    writers corner
-        name    
-        genre
-        text area
-        notes
+create validations for everything
+migrate backend
+create get user.id
+create session
         

@@ -12,6 +12,11 @@ class User(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, nullable=False, unique=True)
     _password_hash = db.Column(db.String, nullable=False)
+    first_name = db.Column(db.String, nullable=False)
+    last_name = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, nullable=False)
+    avatar_sheet = db.Column(db.String, nullable=False, default='default-spritesheet.png')
+    avater_frame_index = db.Column(db.Integer, nullable=False, default=0)
 
     reviews = db.relationship('Review', back_populates='user', cascade='all, delete-orphan')
     chatrooms = db.relationship('Chatroom', back_populates='user', cascade='all, delete-orphan')
@@ -65,6 +70,8 @@ class Book(db.Model, SerializerMixin):
     title = db.Column(db.String, nullable=False)
     author = db.Column(db.String, nullable=False)
     genre = db.Column(db.String, nullable=False)
+    number_of_pages = db.Column(db.Integer, nullable=False)
+    progress = db.Column(db.Integer, nullable=False)
 
     reviews = db.relationship('Review', back_populates='book', cascade='all, delete-orphan')
 

@@ -1,0 +1,9 @@
+conditionally render login/account 
+    keep it the same size
+conditionally render edit buttons
+create a save/submit button at the bottom
+
+conditionally render avatar/profile pic drop down
+    find spritesheets
+    create hover feature
+create fetch and check session

@@ -4,9 +4,10 @@ import Search from "./Search"
 
 const Home = () => {
     return(
-        <div>
-            <div className="">
-                <Header/>
+        <div className="home">
+            <Header/>
+            <div>
+                
             </div>
             
         </div>
