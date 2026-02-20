@@ -1,9 +1,16 @@
-conditionally render login/account 
+create login and create account
     keep it the same size
+    create error handling/messages under inputs
+    create routes using rest
+    create loading state/div
+create cant find page
+navlink from account to login or create account 
+    put validations for create account visible to user
+    put useEffect in account to checksession/user if user is logged in, if not then navlink to create or login 
 conditionally render edit buttons
 create a save/submit button at the bottom
 
 conditionally render avatar/profile pic drop down
     find spritesheets
     create hover feature
-create fetch and check session
+create fetch login,logout, create account and check session

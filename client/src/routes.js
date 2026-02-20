@@ -3,6 +3,8 @@ import SearchResults from "./components/SearchResults"
 import Search from "./components/Search"
 import ChatRoom from "./components/ChatRoom"
 import Account from "./components/Account"
+import Login from "./components/Login"
+import Register from "./components/Register"
 
 const routes = [
     {
@@ -14,9 +16,18 @@ const routes = [
     element: <Account/>
   },
   {
+    path: "/auth/login",
+    element: <Login/>
+  },
+  {
+    path: "/auth/register",
+    element: <Register/>
+  },
+  {
     path: "/books",
     element: <Search/>
   },
+
   {
     path: "/bookclub",
     element: <ChatRoom/>
