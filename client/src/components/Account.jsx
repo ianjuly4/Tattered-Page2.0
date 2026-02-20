@@ -1,13 +1,31 @@
 import React, { useContext } from "react";
 import Header from "./Header";
 import { MyContext } from "../MyContext";
+import { useFormik } from "formik";
+import * as yup from 'yup';
 
 const Account = () => {
-    const {user} = useContext(MyContext)
+    const {user, login} = useContext(MyContext)
+    const formSchema = yup.object().shape({
+        searchTerm: yup.string().required("Must enter a search term").max(100),
+        filter: yup.string().required("Must filter search term").oneOf(["title", "author", "genre"]),
+      });
+    
+      const formik = useFormik({
+        initialValues: {
+          searchTerm: "",
+          filter: "title",  
+        },
+        validationSchema: formSchema,
+        onSubmit: (values) => {
+          login(values.searchTerm, values.filter);
+            
+        },
+      });
     return(
         <div className="account">
             <Header/>
-            {user?<div className="account-container" >
+            {user? <div className="account-container" >
                 <h2>WELCOME BACK,{}</h2>
                 <div className="account-pic">
                     <img src="/default-avatar.png" alt="Profile" />
@@ -63,8 +81,25 @@ const Account = () => {
 
             </div>:
             <div className="account-login">
-                </div>}
-            
+                <h2>Please Login or Create An Account</h2>
+                <div className="account-login-form">
+                    <input
+                    type="text"
+                    placeholder="Username"
+                    value={formik.values.Username}
+                    onChange={formik.handleChange}
+                    name="Username"
+                    />
+                    <input
+                    type="text"
+                    placeholder="Password"
+                    value={formik.values.Password}
+                    onChange={formik.handleChange}
+                    name="Password"
+                    />
+                <button type="submit">Login</button>
+                </div>
+            </div>}
         </div>
     )
 }
