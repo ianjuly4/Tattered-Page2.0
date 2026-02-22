@@ -24,10 +24,9 @@ const Login = () =>{
             },
           });
     return(
-        <div>
+        <div className="login">
             <Header/>
-       
-            <div className="account-login">
+            <div className="login-container">
                     <h2>Please Login </h2>
                     <div className="account-login-form">
                         <h3>Login</h3>
