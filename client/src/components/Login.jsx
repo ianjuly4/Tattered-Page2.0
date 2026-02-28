@@ -3,52 +3,54 @@ import { MyContext } from "../MyContext";
 import { useFormik } from "formik";
 import * as yup from 'yup';
 import Header from "./Header";
-
+import { NavLink } from "react-router-dom";
 
 const Login = () =>{
     const {user, login} = useContext(MyContext)
-    const formSchema = yup.object().shape({
-            searchTerm: yup.string().required("Must enter a search term").max(100),
-            filter: yup.string().required("Must filter search term").oneOf(["title", "author", "genre"]),
-          });
-        
-          const formik = useFormik({
-            initialValues: {
-              searchTerm: "",
-              filter: "title",  
-            },
-            validationSchema: formSchema,
-            onSubmit: (values) => {
-              login(values.searchTerm, values.filter);
-                
-            },
-          });
+
+const formSchema = yup.object().shape({
+    username: yup.string().required("Must enter a username.").max(25),
+    password: yup.string().required("Must enter a password").max(25),
+  });
+
+  const loginFormik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    validationSchema: formSchema,
+    onSubmit: (values) => {
+      login(values.username, values.password);
+    },
+  });
+
     return(
         <div className="login">
             <Header/>
             <div className="login-container">
-                    <h2>Please Login </h2>
-                    <div className="account-login-form">
+                    <form className="login-form" onSubmit={loginFormik.handleSubmit}>
                         <h3>Login</h3>
+                        <span className="login-form-errors">{loginFormik.errors.username || loginFormik.errors.password}</span>
                         <input
-                        className="account-login-input"
+                        className="login-input"
                         type="text"
-                        placeholder="Username"
-                        value={formik.values.Username}
-                        onChange={formik.handleChange}
-                        name="Username"
+                        name="username"
+                        placeholder="username"
+                        value={loginFormik.values.username}
+                        onChange={loginFormik.handleChange}
                         />
                         <input
-                        className="account-login-input"
-                        type="text"
-                        placeholder="Password"
-                        value={formik.values.Password}
-                        onChange={formik.handleChange}
-                        name="Password"
+                        className="login-input"
+                        type="password"
+                        name="password"
+                        placeholder="password"
+                        value={loginFormik.values.password}
+                        onChange={loginFormik.handleChange}
+                       
                         />
-                        <button className="account-login-btn" type="submit">Login</button>
-                        <span>Don't Have An Account? Create One Here</span>
-                    </div>
+                        <button className="login-btn" type="submit">Login</button>
+                        <span>Don't Have An Account? Create One <NavLink to="/auth/register" className="register-link">Here</NavLink></span>
+                    </form>
                 </div>
         </div>
     )

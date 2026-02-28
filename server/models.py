@@ -20,7 +20,7 @@ class User(db.Model, SerializerMixin):
 
     reviews = db.relationship('Review', back_populates='user', cascade='all, delete-orphan')
     chatrooms = db.relationship('Chatroom', back_populates='user', cascade='all, delete-orphan')
-
+    friends = db.relationship('Friend', back_populates='user', cascade='all, delete-orphan')
     
     
     @hybrid_property
@@ -75,14 +75,14 @@ class Book(db.Model, SerializerMixin):
 
     reviews = db.relationship('Review', back_populates='book', cascade='all, delete-orphan')
 
-class ChatRoom(db.Model, SerializerMixin):
+class Chatroom(db.Model, SerializerMixin):
     __tablename__ = 'chatrooms'
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=True)
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    friend_id = db.Column(db.Integer, db.ForiegnKey('friends.id'))
+    friend_id = db.Column(db.Integer, db.ForeignKey('friends.id'))
 
     user = db.relationship('User', back_populates='chatrooms')
     friend = db.relationship('Friend', back_populates='chatrooms')
