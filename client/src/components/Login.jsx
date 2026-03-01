@@ -6,12 +6,12 @@ import Header from "./Header";
 import { NavLink } from "react-router-dom";
 
 const Login = () =>{
-    const {user, login} = useContext(MyContext)
+  const {user, login, loginError} = useContext(MyContext)
 
-const formSchema = yup.object().shape({
-    username: yup.string().required("Must enter a username.").max(25),
-    password: yup.string().required("Must enter a password").max(25),
-  });
+  const formSchema = yup.object().shape({
+      username: yup.string().required("Must enter a username.").max(25),
+      password: yup.string().required("Must enter a password").max(25),
+    });
 
   const loginFormik = useFormik({
     initialValues: {
@@ -24,18 +24,22 @@ const formSchema = yup.object().shape({
     },
   });
 
+  /* Either create a useEffect or create a redirect if a user is logged in*/
+
+
+  const formError = loginError || loginFormik.errors.username || loginFormik.errors.password ;
     return(
         <div className="login">
             <Header/>
             <div className="login-container">
                     <form className="login-form" onSubmit={loginFormik.handleSubmit}>
                         <h3>Login</h3>
-                        <span className="login-form-errors">{loginFormik.errors.username || loginFormik.errors.password}</span>
+                        {formError && <span className='login-form-errors'>{formError}</span>}
                         <input
                         className="login-input"
                         type="text"
                         name="username"
-                        placeholder="username"
+                        placeholder="Username"
                         value={loginFormik.values.username}
                         onChange={loginFormik.handleChange}
                         />
@@ -43,7 +47,7 @@ const formSchema = yup.object().shape({
                         className="login-input"
                         type="password"
                         name="password"
-                        placeholder="password"
+                        placeholder="Password"
                         value={loginFormik.values.password}
                         onChange={loginFormik.handleChange}
                        

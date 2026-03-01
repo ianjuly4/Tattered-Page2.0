@@ -16,11 +16,11 @@ class User(db.Model, SerializerMixin):
     last_name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False)
     avatar_sheet = db.Column(db.String, nullable=False, default='default-spritesheet.png')
-    avater_frame_index = db.Column(db.Integer, nullable=False, default=0)
+    avatar_frame_index = db.Column(db.Integer, nullable=False, default=0)
 
     reviews = db.relationship('Review', back_populates='user', cascade='all, delete-orphan')
     chatrooms = db.relationship('Chatroom', back_populates='user', cascade='all, delete-orphan')
-    friends = db.relationship('Friend', back_populates='user', cascade='all, delete-orphan')
+    
     
     
     @hybrid_property
@@ -92,6 +92,6 @@ class Friend(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, nullable=False)
-
-    users = db.relationship('User', back_populates='friend', cascade='all, delete-orphan')
+   
+    chatrooms = db.relationship('Chatroom', back_populates='friend', cascade='all, delete-orphan')
 

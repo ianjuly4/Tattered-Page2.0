@@ -6,48 +6,64 @@ import Header from "./Header";
 import { NavLink } from "react-router-dom";
 
 const Register = ()=>{
-const {user, login} = useContext(MyContext)
-    const formSchema = yup.object().shape({
+  const {user, register, registerError} = useContext(MyContext)
+  const formSchema = yup.object().shape({
             searchTerm: yup.string().required("Must enter a search term").max(100),
             filter: yup.string().required("Must filter search term").oneOf(["title", "author", "genre"]),
           });
         
-          const formik = useFormik({
+          const registerFormik = useFormik({
             initialValues: {
-              searchTerm: "",
-              filter: "title",  
+              username: "", 
+              password: "",
+              first_name: "",
+              last_name: "",
+              email:"",
+              avatar_sheet:"",
+              avatar_frame_index:"",  
             },
             validationSchema: formSchema,
             onSubmit: (values) => {
-              login(values.searchTerm, values.filter);
+              register();
                 
             },
           });
+
+    const formError = registerError || registerFormik.errors.email || registerFormik.errors.password 
+    
     return(
-        <div className="login">
+        <div className="register">
             <Header/>
-            <div className="login-container">
+            <div className="register-container">
                     
-                    <div className="login-form">
-                        <h3>Login</h3>
+                    <div className="register-form" onSubmit={registerFormik.handleSubmit}>
+                        <h3>Create Account</h3>
+                        {formError && <span className='register-form-errors'>{formError}</span>}
+                        
                         <input
-                        className="login-input"
-                        type="text"
-                        placeholder="Username"
-                        value={formik.values.Username}
-                        onChange={formik.handleChange}
-                        name="Username"
+                        className="register-input"
+                        type="email"
+                        placeholder="Email"
+                        name="Email"
+                        value={registerFormik.values.email}
+                        onChange={registerFormik.handleChange}
+      
                         />
+
+                        {registerFormik.errors.email && <span className='register-form-errors'>{registerFormik.errors.email}</span>}
                         <input
-                        className="login-input"
+                        className="register-input"
                         type="password"
                         placeholder="Password"
-                        value={formik.values.Password}
-                        onChange={formik.handleChange}
                         name="Password"
+                        value={registerFormik.values.password}
+                        onChange={registerFormik.handleChange}
+                        
                         />
-                        <button className="login-btn" type="submit">Login</button>
-                        <span>Don't Have An Account? Create One <NavLink to="/auth/register" className="register-link">Here</NavLink></span>
+                        {registerFormik.errors.password && <span className='register-form-errors'>{registerFormik.errors.password}</span>}
+                        
+                        <button className="register-btn" type="submit">Create Account</button>
+                        <span>Already Have An Account? Click <NavLink to="/auth/login" className="register-link">Here</NavLink></span>
                     </div>
                 </div>
         </div>

@@ -292,7 +292,11 @@ h2 {
   border-radius: 12px;
 }
 .login-form-errors{
-  
+  background-color: red;
+  color: black;
+  border: 2px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 10px;
 }
 
 .login-form span{
@@ -312,8 +316,6 @@ h2 {
   border: 2px solid #e5e5e5;
   border-radius: 12px;
   padding: 10px 12px;
-
-  
 }
 
 .login-input:focus {
@@ -370,6 +372,86 @@ h2 {
   text-decoration-color: #4c51bf;
   color: #4c51bf;
  
+}
+
+.register{
+  width: 95%;
+  max-width: 1800px;
+  max-height: 2000px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  /*gap: 30px;*/
+  border: 5px solid #e5e5e5;
+  border-radius: 12px;
+}
+.register-container {
+  box-sizing: border-box;
+  max-width: 500px;
+  width: 95%;
+  min-width: 320px;
+  padding: 20px;
+  margin: 20px auto;
+  padding-bottom: 40px;
+  
+}
+
+.register-btn{
+  border: 5px solid #e5e5e5;
+  border-radius: 12px;
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: 150px;
+  height: 40px;
+ 
+}
+.register-btn:hover{
+  background-color: #4c51bf;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.register-form{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  justify-content: center;
+  align-self: center;
+  padding:20px;
+  border: 5px solid #e5e5e5;
+  border-radius: 12px;
+}
+.register-form-errors{
+  background-color: red;
+  color: black;
+  border: 2px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.register-form span{
+  grid-column: 1 / -1;
+  justify-self: center;
+}
+
+.register-form h3{
+  grid-column: 1 / -1;
+  justify-self: center;
+  margin-bottom: -10px;
+}
+
+
+.register-input {
+  text-align: center;
+  border: 2px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.register-input:focus {
+  outline: none;
+  border-color: #4c51bf;
+  box-shadow: 0 0 0 2px rgba(76, 81, 191, 0.3);
 }
 
 

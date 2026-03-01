@@ -11,14 +11,14 @@ const Account = () => {
         filter: yup.string().required("Must filter search term").oneOf(["title", "author", "genre"]),
       });
     
-      const formik = useFormik({
+      const editFormik = useFormik({
         initialValues: {
-          searchTerm: "",
-          filter: "title",  
+          username: "",
+          password: "",  
         },
         validationSchema: formSchema,
         onSubmit: (values) => {
-          login(values.searchTerm, values.filter);
+          login(values);
             
         },
       });
@@ -26,7 +26,7 @@ const Account = () => {
         <div className="account">
             <Header/>
             <div className="account-container" >
-                <h2>WELCOME BACK,{}</h2>
+                <h2>WELCOME BACK,{user.username}</h2>
                 <div className="account-pic">
                     <img src="/default-avatar.png" alt="Profile" />
                 </div>
