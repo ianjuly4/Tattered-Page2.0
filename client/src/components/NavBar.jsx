@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
+import { MyContext } from "../MyContext";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate, NavLink } from "react-router-dom";
 
 const NavBar = () => {
+  const {user} = useContext(MyContext) || {}
   return (
     <nav className="navbar">
       <ul className="nav-links">
@@ -22,16 +24,16 @@ const NavBar = () => {
             Bookclub
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/user/:userId" className="navlink">
+        {user?(
+          <li><NavLink to={`/users/${user.id}`} className="navlink">
             Account
           </NavLink>
-        </li>
-        {/* <li>
-          <NavLink to={`/users/${user.id}`} className="navlink">
-            Profile
+          </li>):(
+            <li><NavLink to={'/auth/login'} className="navlink">
+            Account
           </NavLink>
-        </li> */}
+          </li>)
+          }
       </ul>
     </nav>
   );

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Header from "./Header";
 import { MyContext } from "../MyContext";
 import { useFormik } from "formik";
@@ -22,6 +22,7 @@ const Account = () => {
             
         },
       });
+
     return(
         <div className="account">
             <Header/>

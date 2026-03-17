@@ -1,33 +1,40 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import { MyContext } from "../MyContext";
 import { useFormik } from "formik";
 import * as yup from 'yup';
 import Header from "./Header";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Login = () =>{
-  const {user, login, loginError} = useContext(MyContext)
+  const {user, login, loginError, isLoggedIn} = useContext(MyContext)
+  const navigate = useNavigate()
 
   const formSchema = yup.object().shape({
-      username: yup.string().required("Must enter a username.").max(25),
+      email: yup.string().required("Must enter a email.").max(25),
       password: yup.string().required("Must enter a password").max(25),
     });
 
   const loginFormik = useFormik({
     initialValues: {
-      username: "",
+      email: "",
       password: "",
     },
     validationSchema: formSchema,
     onSubmit: (values) => {
-      login(values.username, values.password);
+      login(values.email, values.password);
     },
   });
+
+  useEffect(() =>{
+    if(user && isLoggedIn){
+      navigate(`/users/${user.id}`)
+    }
+  }, [user, isLoggedIn])
 
   /* Either create a useEffect or create a redirect if a user is logged in*/
 
 
-  const formError = loginError || loginFormik.errors.username || loginFormik.errors.password ;
+  const formError = loginError || loginFormik.errors.email || loginFormik.errors.password ;
     return(
         <div className="login">
             <Header/>
@@ -38,9 +45,9 @@ const Login = () =>{
                         <input
                         className="login-input"
                         type="text"
-                        name="username"
-                        placeholder="Username"
-                        value={loginFormik.values.username}
+                        name="email"
+                        placeholder="email"
+                        value={loginFormik.values.email}
                         onChange={loginFormik.handleChange}
                         />
                         <input

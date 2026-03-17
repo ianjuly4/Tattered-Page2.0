@@ -13,7 +13,7 @@ const Search = () => {
     filter: yup.string().required("Must filter search term").oneOf(["title", "author", "genre"]),
   });
 
-  const formik = useFormik({
+  const searchFormik = useFormik({
     initialValues: {
       searchTerm: "",
       filter: "title",  
@@ -26,19 +26,14 @@ const Search = () => {
   });
   console.log(books)
    return (
-  <div>
+  <div className="search">
     <Header />
-
-    <div className="page-container">
-
-      {/* Top Bar */}
-      <div className="top-bar">
-        <div className="search">
-          <form onSubmit={formik.handleSubmit}>
+        <div className="search-form" onSubmit={searchFormik}>
+          <form onSubmit={searchFormik.handleSubmit}>
             <select
               name="filter"
-              value={formik.values.filter}
-              onChange={formik.handleChange}
+              value={searchFormik.values.filter}
+              onChange={searchFormik.handleChange}
             >
               <option value="title">Title</option>
               <option value="author">Author</option>
@@ -48,20 +43,19 @@ const Search = () => {
             <input
               type="text"
               placeholder="Search"
-              value={formik.values.searchTerm}
-              onChange={formik.handleChange}
+              value={searchFormik.values.searchTerm}
+              onChange={searchFormik.handleChange}
               name="searchTerm"
             />
 
             <button type="submit">Enter</button>
           </form>
         </div>
-      </div>
 
       {/* Grid lives inside SearchResults */}
       <SearchResults books={books} />
 
-    </div>
+    
   </div>
 );
 
