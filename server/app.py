@@ -117,6 +117,16 @@ class Users(Resource):
 
 api.add_resource(Users, "/users")
 
+class UserById(Resource):
+    def get(self, id):
+        user = User.query.filter(User.id == id).first()
+        if not user:
+            return  make_response({"message": "User not found"}, 404)
+
+        return make_response({'user': user.to_dict(rules=('-_password_hash',))}, 200)
+    
+api.add_resource(UserById,'/user/<int:id>' )
+
 
 # -------------------------
 # Email Verification Route
@@ -176,12 +186,29 @@ class Login(Resource):
 
 api.add_resource(Login, "/login")
 
+
 class Logout(Resource):
     def delete(self):
         session['user_id'] = None
         return make_response({'message': 'Logged out successfully'}, 200)
 
 api.add_resource(Logout, '/logout')
+
+class CheckSession(Resource):
+    def get(self):
+        print(f"Session contents: {session}")
+        user_id = session.get("user_id")
+        if not user_id:
+            return make_response({"message": "No user currently logged in"}, 401)
+
+        user = User.query.filter(User.id == user_id).first()
+
+        if user:
+            return make_response({'user':user.to_dict(rules=('-_password_hash',))}, 200)
+        else:
+            return make_response({"message": "User not found"}, 404)
+        
+api.add_resource(CheckSession, "/check_session")
     
 if __name__ == "__main__":
     app.run(port=5555, debug=True)

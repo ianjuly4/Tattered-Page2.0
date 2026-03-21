@@ -24,16 +24,12 @@ const NavBar = () => {
             Bookclub
           </NavLink>
         </li>
-        {user?(
-          <li><NavLink to={`/users/${user.id}`} className="navlink">
+
+          <li><NavLink to={user?.id ? `/user/${user.id}` : "/auth/login"} className="navlink">
             Account
           </NavLink>
-          </li>):(
-            <li><NavLink to={'/auth/login'} className="navlink">
-            Account
-          </NavLink>
-          </li>)
-          }
+          </li>
+     
       </ul>
     </nav>
   );

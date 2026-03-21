@@ -9,6 +9,7 @@ const Login = () =>{
   const {user, login, loginError, isLoggedIn} = useContext(MyContext)
   const navigate = useNavigate()
 
+ 
   const formSchema = yup.object().shape({
       email: yup.string().required("Must enter a email.").max(25),
       password: yup.string().required("Must enter a password").max(25),
@@ -27,21 +28,20 @@ const Login = () =>{
 
   useEffect(() =>{
     if(user && isLoggedIn){
-      navigate(`/users/${user.id}`)
+      navigate(`/user/${user.id}`)
     }
   }, [user, isLoggedIn])
 
-  /* Either create a useEffect or create a redirect if a user is logged in*/
+  
 
 
-  const formError = loginError || loginFormik.errors.email || loginFormik.errors.password ;
     return(
         <div className="login">
             <Header/>
             <div className="login-container">
                     <form className="login-form" onSubmit={loginFormik.handleSubmit}>
                         <h3>Login</h3>
-                        {formError && <span className='login-form-errors'>{formError}</span>}
+                        {loginError || loginFormik.errors.email || loginFormik.errors.password&& <span className='login-form-errors'>{loginError || loginFormik.errors.email || loginFormik.errors.password}</span>}
                         <input
                         className="login-input"
                         type="text"

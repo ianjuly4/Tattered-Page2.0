@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import * as yup from 'yup';
 
 const Account = () => {
-    const {user, login} = useContext(MyContext)
+    const {user, login, logout} = useContext(MyContext)
     const formSchema = yup.object().shape({
         searchTerm: yup.string().required("Must enter a search term").max(100),
         filter: yup.string().required("Must filter search term").oneOf(["title", "author", "genre"]),
@@ -22,7 +22,7 @@ const Account = () => {
             
         },
       });
-
+    console.log(user.id)
     return(
         <div className="account">
             <Header/>
@@ -77,6 +77,8 @@ const Account = () => {
                             <button className="info-edit-btn">Edit Last Name</button>
                         </div>
                 </div>
+                <button 
+                    onClick={() => {logout()}}>Logout</button>
                         
              
 

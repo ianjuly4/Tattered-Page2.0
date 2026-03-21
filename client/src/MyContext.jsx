@@ -46,7 +46,7 @@ const MyContextProvider = ({children})=>{
   const register = (email, password) => {
     setLoading(true);
     setError(null);
-    fetch(" http://127.0.0.1:5555/users", {
+    fetch(" http://localhost/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const MyContextProvider = ({children})=>{
   const login = (email, password) => {
     setLoading(true);
     setError(null);
-    fetch(" http://127.0.0.1:5555/login", {
+    fetch("http://localhost:5555/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -95,8 +95,10 @@ const MyContextProvider = ({children})=>{
         return response.json();
     })
     .then((data) => {
-        setUser(data);
+        setUser(data.user);
+        console.log(data.user)
         setIsLoggedIn(true)
+
         return true;
     })
     .catch((error) => {
@@ -108,6 +110,24 @@ const MyContextProvider = ({children})=>{
     });
   }
 
+  const logout = () => {
+    fetch("http://localhost/logout", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(() => {
+     
+        setUser(null);
+        setIsLoggedIn(false);
+
+      })
+      .catch((error) => {
+        setError("Logout Error: " + error.message);
+      });
+  };
+
 return (
     <MyContext.Provider
       value={{
@@ -117,7 +137,9 @@ return (
         fetchBooks,
         register,
         login,
-        isLoggedIn
+        isLoggedIn, 
+        user, 
+        logout
       }}
     >
       {children}
