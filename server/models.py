@@ -24,10 +24,6 @@ class User(db.Model, SerializerMixin):
     avatar_sheet = db.Column(db.String, nullable=True, default='default-spritesheet.png')
     avatar_frame_index = db.Column(db.Integer, nullable=True, default=0)
 
-    # Email verification
-    verification_token = db.Column(db.String, unique=True)
-    is_verified = db.Column(db.Boolean, default=False)
-
     # Relationships
     reviews = db.relationship('Review', back_populates='user', cascade='all, delete-orphan')
     sent_requests = db.relationship(
@@ -43,9 +39,6 @@ class User(db.Model, SerializerMixin):
         cascade='all, delete-orphan'
     )
 
-    # -------------------------
-    # Properties
-    # -------------------------
     @property
     def friends(self):
         friends_list = []
@@ -64,9 +57,7 @@ class User(db.Model, SerializerMixin):
     def pending_requests(self):
         return [r.requestee for r in self.received_requests if r.status == "pending"]
 
-    # -------------------------
-    # Password
-    # -------------------------
+  
     @hybrid_property
     def password_hash(self):
         return self._password_hash
@@ -78,9 +69,7 @@ class User(db.Model, SerializerMixin):
     def authenticate(self, password):
         return bcrypt.check_password_hash(self._password_hash, password.encode('utf-8'))
 
-    # -------------------------
-    # Validators
-    # -------------------------
+
     @validates('username')
     def validate_username(self, key, username):
         if username and len(username) < 3:

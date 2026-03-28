@@ -41,7 +41,7 @@ const Login = () =>{
             <div className="login-container">
                     <form className="login-form" onSubmit={loginFormik.handleSubmit}>
                         <h3>Login</h3>
-                        {loginError || loginFormik.errors.email || loginFormik.errors.password&& <span className='login-form-errors'>{loginError || loginFormik.errors.email || loginFormik.errors.password}</span>}
+                        {loginError && (<span className="login-form-errors">{loginError}</span>)}
                         <input
                         className="login-input"
                         type="text"
@@ -50,6 +50,7 @@ const Login = () =>{
                         value={loginFormik.values.email}
                         onChange={loginFormik.handleChange}
                         />
+                        {loginFormik.touched.email && loginFormik.errors.email && (<span classname="login-form-errors">{loginFormik.errors.email}</span>)}
                         <input
                         className="login-input"
                         type="password"
@@ -57,8 +58,8 @@ const Login = () =>{
                         placeholder="Password"
                         value={loginFormik.values.password}
                         onChange={loginFormik.handleChange}
-                       
                         />
+                        {loginFormik.touched.password && loginFormik.errors.password && (<span classname="login-form-errors">{loginFormik.errors.password}</span>)}
                         <button className="login-btn" type="submit">Login</button>
                         <span>Don't Have An Account? Create One <NavLink to="/auth/register" className="register-link">Here</NavLink></span>
                     </form>

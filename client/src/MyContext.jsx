@@ -1,4 +1,4 @@
-import React, {useState, createContext} from "react";
+import React, {useState, createContext, useEffect} from "react";
 
 const MyContext = createContext();
 const API_KEY = "AIzaSyBf_grAHTnhr09zZ0oZI_NQ8AlSyBeXS_s";
@@ -9,6 +9,7 @@ const MyContextProvider = ({children})=>{
   const [books, setBooks] = useState([])
   const [user, setUser] = useState([])
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [loginError, setLoginError] = useState(null)
 
   const fetchBooks = (searchQuery, filterType) => {
     console.log(searchQuery,filterType)
@@ -77,7 +78,7 @@ const MyContextProvider = ({children})=>{
 
   const login = (email, password) => {
     setLoading(true);
-    setError(null);
+    setLoginError(null);
     fetch("http://localhost:5555/login", {
       method: "POST",
       headers: {
@@ -89,7 +90,7 @@ const MyContextProvider = ({children})=>{
     .then((response) => {
         if (!response.ok) {
             return response.json().then((data) => {
-                throw new Error(data.error || "Create Account failed");
+                throw new Error(data.error || "Account Login failed");
             });
         }
         return response.json();
@@ -102,7 +103,7 @@ const MyContextProvider = ({children})=>{
         return true;
     })
     .catch((error) => {
-        setError(error.message);  
+        setLoginError(error.message);  
         return false;
     })
     .finally(() => {
@@ -111,7 +112,7 @@ const MyContextProvider = ({children})=>{
   }
 
   const logout = () => {
-    fetch("http://localhost/logout", {
+    fetch("http://localhost:5555/logout", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -127,6 +128,25 @@ const MyContextProvider = ({children})=>{
         setError("Logout Error: " + error.message);
       });
   };
+//TODO figure out whats wrong with session
+  useEffect(()=> {
+    fetch("http://localhost:5555/check_session", {
+      method: "GET",
+      credentials: "include"
+    })
+    .then((r)=> {
+      if (r.ok) return r.json();
+      throw new Error("Not logged in");
+    })
+    .then((data)=>{
+      setUser(data.user)
+      setIsLoggedIn(true)
+    })
+    .catch(()=>{
+      setUser(null);
+      setIsLoggedIn(false)
+    })
+  }, [])
 
 return (
     <MyContext.Provider
@@ -139,7 +159,8 @@ return (
         login,
         isLoggedIn, 
         user, 
-        logout
+        logout,
+        loginError
       }}
     >
       {children}
